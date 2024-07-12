@@ -14,15 +14,27 @@ public class FirstPersonController : MonoBehaviour
 {
     private Rigidbody rb;
 
+    public Transform katana;
+    public Animator swb;
+
+
+    private Vector3 originalKatanaScale = new Vector3(217.2288f,217.2288f,217.2288f);
+    public int intt;
+
+
     #region Camera Movement Variables
 
     public Camera playerCamera;
+
+    
 
     public float fov = 60f;
     public bool invertCamera = false;
     public bool cameraCanMove = true;
     public float mouseSensitivity = 2f;
     public float maxLookAngle = 50f;
+
+    public Transform imposKat;
 
     // Crosshair
     public bool lockCursor = true;
@@ -319,7 +331,11 @@ public class FirstPersonController : MonoBehaviour
         // Gets input and calls jump method
         if(enableJump && Input.GetKeyDown(jumpKey) && isGrounded)
         {
+            playerCanMove = false;
+            
             Jump();
+            playerCanMove = true;
+            
         }
 
         #endregion
@@ -327,7 +343,9 @@ public class FirstPersonController : MonoBehaviour
         #region Crouch
 
         if (enableCrouch)
+        
         {
+   
             if(Input.GetKeyDown(crouchKey) && !holdToCrouch)
             {
                 Crouch();
@@ -336,11 +354,13 @@ public class FirstPersonController : MonoBehaviour
             if(Input.GetKeyDown(crouchKey) && holdToCrouch)
             {
                 isCrouched = false;
+            
                 Crouch();
             }
             else if(Input.GetKeyUp(crouchKey) && holdToCrouch)
             {
                 isCrouched = true;
+ 
                 Crouch();
             }
         }
@@ -373,7 +393,7 @@ public class FirstPersonController : MonoBehaviour
             }
 
             // All movement calculations shile sprint is active
-            if (enableSprint && Input.GetKey(sprintKey) && sprintRemaining > 0f && !isSprintCooldown && !isCrouched)
+            if (enableSprint && Input.GetKey(sprintKey) && sprintRemaining > 0f && !isSprintCooldown && !isCrouched && isGrounded)
             {
                 targetVelocity = transform.TransformDirection(targetVelocity) * sprintSpeed;
 
@@ -392,6 +412,7 @@ public class FirstPersonController : MonoBehaviour
 
                     if (isCrouched)
                     {
+                 
                         Crouch();
                     }
 
@@ -435,22 +456,30 @@ public class FirstPersonController : MonoBehaviour
 
         Vector3 origin = new Vector3(transform.position.x, transform.position.y - (transform.localScale.y * .5f), transform.position.z);
         Vector3 direction = transform.TransformDirection(Vector3.down);
-        float distance = 2f;
+        float distance = 1.9f;
 
         if (Physics.Raycast(origin,  direction,out RaycastHit hit, distance))
         {
             Debug.DrawRay(origin, direction * distance, Color.red);
             isGrounded = true;
+            
         }
         else
         {
             isGrounded = false;
+            Vector3 currenVo = rb.velocity;
+            currenVo.x = 0;
+            currenVo.z = 0;
+            rb.velocity = currenVo;
         }
     }
 
     private void Jump()
     {
         // Adds force to the player rigidbody to jump
+        Vector3 currenVo = rb.velocity;
+            currenVo.x = 0;
+            currenVo.z = 0;
         if (isGrounded)
         {
             rb.AddForce(0f, jumpPower, 0f, ForceMode.Impulse);
@@ -465,27 +494,50 @@ public class FirstPersonController : MonoBehaviour
         }
     }
 
-    private void Crouch()
+ private void Crouch()
+{
+    if (isCrouched)
     {
-        // Stands player up to full height
-        // Brings walkSpeed back up to original speed
-        if(isCrouched)
-        {
-            transform.localScale = new Vector3(originalScale.x, originalScale.y, originalScale.z);
-            walkSpeed /= speedReduction;
+        // Restore player's original scale
+        transform.localScale = originalScale;
 
-            isCrouched = false;
-        }
-        // Crouches player down to set height
-        // Reduces walkSpeed
-        else
+        // Restore katana's original scale and make it visible
+        if (katana != null)
         {
-            transform.localScale = new Vector3(originalScale.x, crouchHeight, originalScale.z);
-            walkSpeed *= speedReduction;
-
-            isCrouched = true;
+            katana.localScale = originalKatanaScale;
+            katana.gameObject.SetActive(true); 
+            // Ensure katana is visible
+            imposKat.gameObject.SetActive(false);
+            swb.SetBool("swordBa",false);
         }
+
+        walkSpeed /= speedReduction;
+        isCrouched = false;
     }
+    else
+    {
+        // Reduce player's scale to crouch height
+        Vector3 crouchedScale = new Vector3(originalScale.x, crouchHeight, originalScale.z);
+        transform.localScale = crouchedScale;
+
+        // Adjust katana's scale proportionally to player's crouched height and hide it
+        if (katana != null)
+        {
+            Vector3 katanaScale = new Vector3(
+                originalKatanaScale.x,
+                originalKatanaScale.y * (crouchHeight / originalScale.y),
+                originalKatanaScale.z);
+            katana.localScale = katanaScale;
+            katana.gameObject.SetActive(false); // Hide katana
+            imposKat.gameObject.SetActive(true);
+            swb.SetBool("swordBa",true);
+        }
+
+        walkSpeed *= speedReduction;
+        isCrouched = true;
+    }
+}
+
 
     private void HeadBob()
     {
@@ -534,14 +586,12 @@ public class FirstPersonController : MonoBehaviour
         SerFPC = new SerializedObject(fpc);
     }
 
-    public override void OnInspectorGUI()
+    public  void OnInspectorGUI()
     {
         SerFPC.Update();
 
         EditorGUILayout.Space();
-        GUILayout.Label("Modular First Person Controller", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontStyle = FontStyle.Bold, fontSize = 16 });
-        GUILayout.Label("By Jess Case", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontStyle = FontStyle.Normal, fontSize = 12 });
-        GUILayout.Label("version 1.0.1", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontStyle = FontStyle.Normal, fontSize = 12 });
+  
         EditorGUILayout.Space();
 
         #region Camera Setup

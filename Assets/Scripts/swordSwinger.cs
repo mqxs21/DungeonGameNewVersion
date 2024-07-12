@@ -18,9 +18,7 @@ public class SwordSwinger : MonoBehaviour
             isSwinging = true;
             sAnim.SetBool("swordSwinging", true);
         }else{
-            Debug.Log("isSwinging is "+isSwinging);
-            Debug.Log("canClickagain is "+ canClickAgain);
-            Debug.Log("mouseButton is "+Input.GetMouseButton(0));
+
         }
     }
 

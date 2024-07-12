@@ -5,6 +5,8 @@ public class SwordSwinger : MonoBehaviour
 {
     public Animator sAnim;
     public Animator dummyAnim;
+
+    public Animator imsAnim;
     public bool isSwinging = false;
 
     private int now;
@@ -13,8 +15,9 @@ public class SwordSwinger : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButton(0) && !isSwinging)
+        if (Input.GetMouseButton(0) && !isSwinging && !imsAnim.GetBool("swordBa"))
         {
+            
             isSwinging = true;
             sAnim.SetBool("swordSwinging", true);
         }else{
@@ -32,6 +35,7 @@ public class SwordSwinger : MonoBehaviour
             if (objName == "training_dummy")
             {
                 dummyAnim.SetBool("isKnocked",true);
+
             }else
             {
                 Destroy(obj);

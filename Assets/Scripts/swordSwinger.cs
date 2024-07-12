@@ -10,35 +10,42 @@ public class SwordSwinger : MonoBehaviour
     public bool isSwinging = false;
 
     private int now;
-
+    public string attackType;
     public bool canClickAgain;
 
     void Update()
     {
-        if (Input.GetMouseButton(0) && !isSwinging && !imsAnim.GetBool("swordBa"))
+        if (Input.GetMouseButton(0) && !isSwinging && !imsAnim.GetBool("swordBa") && !Input.GetKey("e"))
         {
             
             isSwinging = true;
             sAnim.SetBool("swordSwinging", true);
-        }else{
-
+            attackType = "normal";
+        }else  if (Input.GetMouseButton(0) && Input.GetKey("e")  && !imsAnim.GetBool("heavySwordSwinging")){
+            isSwinging = true;
+            Debug.Log("heav");
+            sAnim.SetBool("heavySwordSwinging", true);
+            attackType = "heavy";
         }
     }
 
     public void ActionsAfterDetectHittingEnemy(string objName)
     {
-
+        
         if (isSwinging)
         {
             Debug.Log("hit enemy");
             GameObject obj = GameObject.Find(objName);
-            if (objName == "training_dummy")
+            if (objName == "training_dummy" && attackType == "normal")
             {
                 dummyAnim.SetBool("isKnocked",true);
 
-            }else
+            }else if (attackType == "heavy")
             {
                 Destroy(obj);
+            }
+            {
+                
             }
             
         }

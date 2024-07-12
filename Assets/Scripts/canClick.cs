@@ -9,7 +9,8 @@ public class canClick : StateMachineBehaviour
         
         SwordSwinger swordSwinger = animator.GetComponent<SwordSwinger>();
         swordSwinger.sAnim.SetBool("swordSwinging", false);
+        swordSwinger.sAnim.SetBool("heavySwordSwinging",false);
         swordSwinger.isSwinging = false;
-        Debug.Log("back");
+  
     }
 }

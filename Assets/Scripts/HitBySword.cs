@@ -5,9 +5,10 @@ public class HitBySword : MonoBehaviour
 {
     void OnCollisionEnter(Collision collision)
     {
+        
         if (collision.collider.CompareTag("Sword"))
         {
-
+            
 
             SwordSwinger swordSwinger = collision.collider.GetComponentInParent<SwordSwinger>();
 

@@ -331,12 +331,12 @@ public class FirstPersonController : MonoBehaviour
         #region Jump
 
         // Gets input and calls jump method
-        if(enableJump && Input.GetKeyDown(jumpKey) && isGrounded)
+        if(enableJump && Input.GetKeyDown(jumpKey) && isGrounded && !isCrouched && !Input.GetKey("e"))
         {
             playerCanMove = false;
-            
             Jump();
             playerCanMove = true;
+            
             
         }
 
@@ -489,11 +489,7 @@ public class FirstPersonController : MonoBehaviour
         }
 
         // When crouched and using toggle system, will uncrouch for a jump
-        if(isCrouched && !holdToCrouch)
-        {
-
-            Crouch();
-        }
+        
     }
 
  private void Crouch()
@@ -515,6 +511,10 @@ public class FirstPersonController : MonoBehaviour
 
         walkSpeed /= speedReduction;
         isCrouched = false;
+        float t;
+        t = jumpPower;
+        jumpPower = 0;
+        jumpPower = t;
     }
     else
     {

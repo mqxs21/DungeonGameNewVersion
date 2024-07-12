@@ -49,6 +49,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5782384772941934022, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
+      propertyPath: swordA
+      value: 
+      objectReference: {fileID: 3659760849601538423}
+    - target: {fileID: 5782384772941934022, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
       propertyPath: holdToCrouch
       value: 0
       objectReference: {fileID: 0}
@@ -60,8 +64,17 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6831301023542863825, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0f34b64c219343940999afb54f7fee90, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
+--- !u!95 &3659760849601538423 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8611104820579647501, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
+  m_PrefabInstance: {fileID: 4993048533225204090}
+  m_PrefabAsset: {fileID: 0}

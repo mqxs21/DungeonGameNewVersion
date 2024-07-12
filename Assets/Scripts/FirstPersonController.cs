@@ -213,6 +213,14 @@ public class FirstPersonController : MonoBehaviour
     private void Update()
     {
         #region Camera
+        if (swordA.GetBool("heavySwordSwinging"))
+        {
+            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, 40, zoomStepTime * Time.deltaTime);
+        }
+        if (!swordA.GetBool("heavySwordSwinging"))
+        {
+            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, fov, zoomStepTime * 2f * Time.deltaTime);
+        }
 
         // Control camera movement
         if(cameraCanMove)
@@ -502,7 +510,7 @@ public class FirstPersonController : MonoBehaviour
         // Restore katana's original scale and make it visible
         if (katana != null)
         {
-            katana.localScale = originalKatanaScale;
+            
             katana.gameObject.SetActive(true); 
             // Ensure katana is visible
             imposKat.gameObject.SetActive(false);
@@ -525,11 +533,7 @@ public class FirstPersonController : MonoBehaviour
         // Adjust katana's scale proportionally to player's crouched height and hide it
         if (katana != null)
         {
-            Vector3 katanaScale = new Vector3(
-                originalKatanaScale.x,
-                originalKatanaScale.y * (crouchHeight / originalScale.y),
-                originalKatanaScale.z);
-            katana.localScale = katanaScale;
+            
             katana.gameObject.SetActive(false); // Hide katana
             imposKat.gameObject.SetActive(true);
             swb.SetBool("swordBa",true);

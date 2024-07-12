@@ -17,6 +17,8 @@ public class FirstPersonController : MonoBehaviour
     public Transform katana;
     public Animator swb;
 
+    public Animator swordA;
+
 
     private Vector3 originalKatanaScale = new Vector3(217.2288f,217.2288f,217.2288f);
     public int intt;
@@ -342,7 +344,7 @@ public class FirstPersonController : MonoBehaviour
 
         #region Crouch
 
-        if (enableCrouch)
+        if (enableCrouch && !swordA.GetBool("swordSwinging") && !swordA.GetBool("heavySwordSwinging"))
         
         {
    

@@ -15,13 +15,13 @@ public class SwordSwinger : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButton(0) && !isSwinging && !imsAnim.GetBool("swordBa") && !Input.GetKey("e"))
+        if (Input.GetMouseButton(0) && !isSwinging && !imsAnim.GetBool("swordBa") && !Input.GetKey("e") && !Input.GetKey(KeyCode.LeftControl))
         {
             
             isSwinging = true;
             sAnim.SetBool("swordSwinging", true);
             attackType = "normal";
-        }else  if (Input.GetMouseButton(0) && Input.GetKey("e")  && !imsAnim.GetBool("heavySwordSwinging")){
+        }else  if (Input.GetMouseButton(0) && Input.GetKey("e")  && !imsAnim.GetBool("heavySwordSwinging") && !Input.GetKey(KeyCode.LeftControl)){
             isSwinging = true;
             Debug.Log("heav");
             sAnim.SetBool("heavySwordSwinging", true);

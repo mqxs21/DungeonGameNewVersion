@@ -9,6 +9,7 @@ public class SwordSwinger : MonoBehaviour
     public Animator imsAnim;
     public bool isSwinging = false;
 
+    public bool isBlocking = false;
     private int now;
     public string attackType;
     public bool canClickAgain;
@@ -27,6 +28,12 @@ public class SwordSwinger : MonoBehaviour
             sAnim.SetBool("heavySwordSwinging", true);
             attackType = "heavy";
         }
+        if (Input.GetKey("b")  && !imsAnim.GetBool("swordBlocking") && !Input.GetKey(KeyCode.LeftControl) && !isBlocking){
+            
+            Debug.Log("block");
+            sAnim.SetBool("swordBlocking", true);
+        }
+        
     }
 
     public void ActionsAfterDetectHittingEnemy(string objName)

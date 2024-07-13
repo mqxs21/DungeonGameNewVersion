@@ -28,7 +28,7 @@ public class SwordSwinger : MonoBehaviour
             sAnim.SetBool("heavySwordSwinging", true);
             attackType = "heavy";
         }
-        if (Input.GetKey("b")  && !imsAnim.GetBool("swordBlocking") && !Input.GetKey(KeyCode.LeftControl) && !isBlocking){
+        if (Input.GetMouseButtonDown(1)  && !imsAnim.GetBool("swordBlocking") && !Input.GetKey(KeyCode.LeftControl) && !isBlocking){
             
             Debug.Log("block");
             sAnim.SetBool("swordBlocking", true);

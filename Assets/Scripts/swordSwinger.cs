@@ -5,7 +5,8 @@ public class SwordSwinger : MonoBehaviour
 {
     public Animator sAnim;
     public Animator dummyAnim;
-
+    public GameObject particleWood;
+    public GameObject particleBlack;
     public Animator imsAnim;
     public bool isSwinging = false;
 
@@ -51,6 +52,8 @@ public class SwordSwinger : MonoBehaviour
             }else if (attackType == "heavy")
             {
                 Destroy(obj);
+                particleBlack.SetActive(true);
+                particleWood.SetActive(true);
             }
             {
                 

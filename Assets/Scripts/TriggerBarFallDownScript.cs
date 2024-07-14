@@ -8,6 +8,15 @@ public class TriggerBarFallDownScript : MonoBehaviour
     public GameObject crouchTipPanel;
 
     public GameObject rockParticle;
+
+    public bool passedCrouch;
+
+    void Update(){
+        if (passedCrouch)
+        {
+            crouchTipPanel.SetActive(false);
+        }
+    }
     void OnTriggerEnter()
     {
         Debug.Log("triggered");
@@ -27,7 +36,6 @@ public class TriggerBarFallDownScript : MonoBehaviour
         
         yield return new WaitForSeconds(delay);
         cameraAnimator.enabled = false;
-        
         
     }
     private IEnumerator FadeOutCrouchTipPanel(float delay){

@@ -46,6 +46,7 @@ public class SwordSwinger : MonoBehaviour
             if (objName == "training_dummy" && attackType == "normal")
             {
                 dummyAnim.SetBool("isKnocked",true);
+                obj.GetComponent<Collider>().enabled = false;
 
             }else if (attackType == "heavy")
             {

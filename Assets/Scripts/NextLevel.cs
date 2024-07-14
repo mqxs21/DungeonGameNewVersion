@@ -9,7 +9,7 @@ public class NextLevel : MonoBehaviour
         {
             Debug.Log("Next Level Trigger");
             int nextScene = SceneManager.GetActiveScene().buildIndex+1;
-            SceneManager.LoadScene("World1");
+            SceneManager.LoadScene(nextScene);
         }
         
     }

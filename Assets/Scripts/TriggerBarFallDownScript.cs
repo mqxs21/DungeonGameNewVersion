@@ -6,6 +6,8 @@ public class TriggerBarFallDownScript : MonoBehaviour
     public Animator columnAnimator;
     public Animator cameraAnimator;
     public GameObject crouchTipPanel;
+
+    public GameObject rockParticle;
     void OnTriggerEnter()
     {
         Debug.Log("triggered");
@@ -13,8 +15,8 @@ public class TriggerBarFallDownScript : MonoBehaviour
         cameraAnimator.enabled = true;
         cameraAnimator.SetBool("isShake", true);
         
-
-        StartCoroutine(DisableAnimatorAfterDelay(1.0f));
+        rockParticle.SetActive(true);
+        StartCoroutine(DisableAnimatorAfterDelay(1f));
 
         
         StartCoroutine(FadeOutCrouchTipPanel(3.0f));
@@ -22,8 +24,11 @@ public class TriggerBarFallDownScript : MonoBehaviour
 
     private IEnumerator DisableAnimatorAfterDelay(float delay)
     {
+        
         yield return new WaitForSeconds(delay);
         cameraAnimator.enabled = false;
+        
+        
     }
     private IEnumerator FadeOutCrouchTipPanel(float delay){
         yield return new WaitForSeconds(delay);

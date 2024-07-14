@@ -5,7 +5,8 @@ public class SwordSwinger : MonoBehaviour
 {
     public Animator sAnim;
     public Animator dummyAnim;
-
+    public GameObject particleWood;
+    public GameObject particleBlack;
     public Animator imsAnim;
     public bool isSwinging = false;
 
@@ -46,10 +47,13 @@ public class SwordSwinger : MonoBehaviour
             if (objName == "training_dummy" && attackType == "normal")
             {
                 dummyAnim.SetBool("isKnocked",true);
+                obj.GetComponent<Collider>().enabled = false;
 
             }else if (attackType == "heavy")
             {
                 Destroy(obj);
+                particleBlack.SetActive(true);
+                particleWood.SetActive(true);
             }
             {
                 

@@ -12,8 +12,10 @@ public class TriggerBarFallDownScript : MonoBehaviour
         columnAnimator.SetBool("fall", true);
         cameraAnimator.enabled = true;
         cameraAnimator.SetBool("isShake", true);
-        crouchTipPanel.GetComponent<Animator>().SetBool("fadeIn",true);
+        
+
         StartCoroutine(DisableAnimatorAfterDelay(1.0f));
+
         
         StartCoroutine(FadeOutCrouchTipPanel(3.0f));
     }
@@ -25,6 +27,8 @@ public class TriggerBarFallDownScript : MonoBehaviour
     }
     private IEnumerator FadeOutCrouchTipPanel(float delay){
         yield return new WaitForSeconds(delay);
+        crouchTipPanel.GetComponent<Animator>().SetBool("fadeIn",true);
+        yield return new WaitForSeconds(delay*1.5f);
         crouchTipPanel.GetComponent<Animator>().SetBool("fadeIn",false);
     }
 }

@@ -216,6 +216,10 @@ public class FirstPersonController : MonoBehaviour
 
     private void Update()
     {
+        if (!isSprinting)
+        {
+            walkSpeed = 13f;
+        }
         #region Camera
         if (swordA.GetBool("heavySwordSwinging"))
         {
@@ -345,9 +349,9 @@ public class FirstPersonController : MonoBehaviour
         // Gets input and calls jump method
         if(enableJump && Input.GetKeyDown(jumpKey) && isGrounded && !isCrouched && !Input.GetKey("e"))
         {
-            playerCanMove = false;
+
             Jump();
-            playerCanMove = true;
+
             
             
         }
@@ -356,7 +360,7 @@ public class FirstPersonController : MonoBehaviour
 
         #region Crouch
 
-        if (enableCrouch && !swordA.GetBool("swordSwinging") && !swordA.GetBool("heavySwordSwinging") && !swordA.GetBool("swordIsBlocking"))
+        if (enableCrouch && !swordA.GetBool("swordSwinging") && !swordA.GetBool("heavySwordSwinging") && !swordA.GetBool("swordIsBlocking") && isGrounded && !Input.GetMouseButton(1))
         
         {
    
@@ -470,7 +474,7 @@ public class FirstPersonController : MonoBehaviour
 
         Vector3 origin = new Vector3(transform.position.x, transform.position.y - (transform.localScale.y * .5f), transform.position.z);
         Vector3 direction = transform.TransformDirection(Vector3.down);
-        float distance = 1.7f;
+        float distance = 1.5f;
 
         if (Physics.Raycast(origin,  direction,out RaycastHit hit, distance))
         {
@@ -494,7 +498,7 @@ public class FirstPersonController : MonoBehaviour
         Vector3 currenVo = rb.velocity;
             currenVo.x = 0;
             currenVo.z = 0;
-        if (isGrounded)
+        if (isGrounded && !crouchDelay)
         {
             rb.AddForce(0f, jumpPower, 0f, ForceMode.Impulse);
             isGrounded = false;
@@ -528,7 +532,7 @@ private void Crouch()
             jumpPower = 0;
             jumpPower = t;
         }
-        else
+        else 
         {
             // Reduce player's scale to crouch height
             Vector3 crouchedScale = new Vector3(originalScale.x, crouchHeight, originalScale.z);

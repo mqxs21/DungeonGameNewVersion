@@ -1,6 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
-
+using System.Collections;
 public class SwordSwinger : MonoBehaviour
 {
     public Animator sAnim;
@@ -15,7 +15,7 @@ public class SwordSwinger : MonoBehaviour
 
     public string attackType;
     public bool canClickAgain;
-
+    
     void Update()
     {
         if (Input.GetMouseButton(0) && !isSwinging && !imsAnim.GetBool("swordBa") && !Input.GetKey("e") && !Input.GetKey(KeyCode.LeftControl))
@@ -23,6 +23,7 @@ public class SwordSwinger : MonoBehaviour
             
             isSwinging = true;
             sAnim.SetBool("swordSwinging", true);
+    
             attackType = "normal";
         }else  if (Input.GetMouseButton(0) && Input.GetKey("e")  && !imsAnim.GetBool("heavySwordSwinging") && !Input.GetKey(KeyCode.LeftControl)){
             isSwinging = true;
@@ -33,23 +34,26 @@ public class SwordSwinger : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             // Only set the parameter if the character is not already blocking
+            sAnim.SetBool("swordAgain", false);
             if (!sAnim.GetBool("swordIsBlocking"))
             {
                 Debug.Log("block");
                 sAnim.SetBool("swordIsBlocking", true);
+                
             }
         }
         
         // Check if the right mouse button is released
         if (Input.GetMouseButtonUp(1))
         {
-            // Set the parameter to false to transition back to idle
+            
             Debug.Log("block down");
             sAnim.SetBool("swordIsBlocking", false);
+
         }
         
     }
-
+     
     public void ActionsAfterDetectHittingEnemy(string objName, int hp)
 {
     
@@ -115,5 +119,6 @@ public class SwordSwinger : MonoBehaviour
         Debug.Log("Sword is not swinging.");
     }
 }
+    
 
 }

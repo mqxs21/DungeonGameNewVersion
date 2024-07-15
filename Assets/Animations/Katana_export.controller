@@ -245,6 +245,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 1
     m_Controller: {fileID: 9100000}
+  - m_Name: swordAgain
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 1
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: swordAnimator
@@ -607,7 +613,7 @@ AnimatorStateMachine:
     m_Position: {x: 40, y: 570, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4342889585881516292}
-    m_Position: {x: 310, y: 540, z: 0}
+    m_Position: {x: 310, y: 530, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2414370188342915423}
     m_Position: {x: 470, y: 670, z: 0}

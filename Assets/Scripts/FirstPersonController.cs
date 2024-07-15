@@ -1,12 +1,14 @@
-﻿
+
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
 #if UNITY_EDITOR
-    using UnityEditor;
+using UnityEditor;
     using System.Net;
 #endif
 
@@ -15,6 +17,8 @@ public class FirstPersonController : MonoBehaviour
     private Rigidbody rb;
 
     public Transform katana;
+
+    private bool crouchDelay = false;
     public Animator swb;
 
     public Animator swordA;
@@ -178,33 +182,32 @@ public class FirstPersonController : MonoBehaviour
 
         #region Sprint Bar
 
-        sprintBarCG = GetComponentInChildren<CanvasGroup>();
+         sprintBarCG = GetComponentInChildren<CanvasGroup>();
 
-        if(useSprintBar)
+    if (useSprintBar)
+    {
+        sprintBarBG.gameObject.SetActive(true);
+        sprintBar.gameObject.SetActive(true);
+
+        float screenWidth = Screen.width;
+        float screenHeight = Screen.height;
+
+        float sprintBarWidth = screenWidth * sprintBarWidthPercent;
+        float sprintBarHeight = screenHeight * sprintBarHeightPercent;
+
+        sprintBarBG.rectTransform.sizeDelta = new Vector2(sprintBarWidth, sprintBarHeight);
+        sprintBar.rectTransform.sizeDelta = new Vector2(sprintBarWidth - 2, sprintBarHeight - 2);
+
+        if (hideBarWhenFull)
         {
-            sprintBarBG.gameObject.SetActive(true);
-            sprintBar.gameObject.SetActive(true);
-
-            float screenWidth = Screen.width;
-            float screenHeight = Screen.height;
-
-            sprintBarWidth = screenWidth * sprintBarWidthPercent;
-            sprintBarHeight = screenHeight * sprintBarHeightPercent;
-
-            sprintBarBG.rectTransform.sizeDelta = new Vector3(sprintBarWidth, sprintBarHeight, 0f);
-            sprintBar.rectTransform.sizeDelta = new Vector3(sprintBarWidth - 2, sprintBarHeight - 2, 0f);
-
-            if(hideBarWhenFull)
-            {
-                sprintBarCG.alpha = 0;
-            }
+            sprintBarCG.alpha = 0;
         }
-        else
-        {
-            sprintBarBG.gameObject.SetActive(false);
-            sprintBar.gameObject.SetActive(false);
-        }
-
+    }
+    else
+    {
+        sprintBarBG.gameObject.SetActive(false);
+        sprintBar.gameObject.SetActive(false);
+    }
         #endregion
     }
 
@@ -352,22 +355,22 @@ public class FirstPersonController : MonoBehaviour
 
         #region Crouch
 
-        if (enableCrouch && !swordA.GetBool("swordSwinging") && !swordA.GetBool("heavySwordSwinging"))
+        if (enableCrouch && !swordA.GetBool("swordSwinging") && !swordA.GetBool("heavySwordSwinging") && !swordA.GetBool("swordIsBlocking"))
         
         {
    
-            if(Input.GetKeyDown(crouchKey) && !holdToCrouch)
+            if(Input.GetKeyDown(crouchKey) && !holdToCrouch && !crouchDelay)
             {
                 Crouch();
             }
             
-            if(Input.GetKeyDown(crouchKey) && holdToCrouch)
+            if(Input.GetKeyDown(crouchKey) && holdToCrouch && !crouchDelay )
             {
                 isCrouched = false;
             
                 Crouch();
             }
-            else if(Input.GetKeyUp(crouchKey) && holdToCrouch)
+            else if(Input.GetKeyUp(crouchKey) && holdToCrouch && !crouchDelay)
             {
                 isCrouched = true;
  
@@ -389,7 +392,7 @@ public class FirstPersonController : MonoBehaviour
     {
         #region Movement
 
-        if (playerCanMove)
+        if (playerCanMove && !crouchDelay)
         {
             Vector3 targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
@@ -499,52 +502,58 @@ public class FirstPersonController : MonoBehaviour
         // When crouched and using toggle system, will uncrouch for a jump
         
     }
-
- private void Crouch()
-{
-    if (isCrouched)
+private void Crouch()
     {
-        // Restore player's original scale
-        transform.localScale = originalScale;
-
-        // Restore katana's original scale and make it visible
-        if (katana != null)
+        if (isCrouched)
         {
-            
-            katana.gameObject.SetActive(true); 
-            // Ensure katana is visible
-            imposKat.gameObject.SetActive(false);
-            swb.SetBool("swordBa",false);
-        }
+            // Restore player's original scale
+            transform.localScale = originalScale;
 
-        walkSpeed /= speedReduction;
-        isCrouched = false;
-        float t;
-        t = jumpPower;
-        jumpPower = 0;
-        jumpPower = t;
+            // Restore katana's original scale and make it visible
+            if (katana != null)
+            {
+                swb.SetBool("swordBa", false);
+                if (!crouchDelay)
+                {
+                    crouchDelay = true;
+                    StartCoroutine(SetActiveAfterDelay());
+                }
+            }
+
+            walkSpeed /= speedReduction;
+            isCrouched = false;
+
+            float t = jumpPower;
+            jumpPower = 0;
+            jumpPower = t;
+        }
+        else
+        {
+            // Reduce player's scale to crouch height
+            Vector3 crouchedScale = new Vector3(originalScale.x, crouchHeight, originalScale.z);
+            transform.localScale = crouchedScale;
+
+            // Adjust katana's scale proportionally to player's crouched height and hide it
+            if (katana != null && !crouchDelay)
+            {
+                katana.gameObject.SetActive(false); // Hide katana
+                imposKat.gameObject.SetActive(true);
+                swb.SetBool("swordBa", true);
+            }
+
+            walkSpeed *= speedReduction;
+            isCrouched = true;
+        }
     }
-    else
+
+    private IEnumerator SetActiveAfterDelay()
     {
-        // Reduce player's scale to crouch height
-        Vector3 crouchedScale = new Vector3(originalScale.x, crouchHeight, originalScale.z);
-        transform.localScale = crouchedScale;
+        yield return new WaitForSeconds(0.5f); // Wait for 1 second
 
-        // Adjust katana's scale proportionally to player's crouched height and hide it
-        if (katana != null)
-        {
-            
-            katana.gameObject.SetActive(false); // Hide katana
-            imposKat.gameObject.SetActive(true);
-            swb.SetBool("swordBa",true);
-        }
-
-        walkSpeed *= speedReduction;
-        isCrouched = true;
+        katana.gameObject.SetActive(true);
+        imposKat.gameObject.SetActive(false);
+        crouchDelay = false; // Reset crouch delay
     }
-}
-
-
     private void HeadBob()
     {
         if(isWalking)
@@ -578,7 +587,6 @@ public class FirstPersonController : MonoBehaviour
 
 
 
-// Custom Editor
 #if UNITY_EDITOR
     [CustomEditor(typeof(FirstPersonController)), InitializeOnLoadAttribute]
     public class FirstPersonControllerEditor : Editor

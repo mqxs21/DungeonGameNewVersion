@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class enemyAi : MonoBehaviour
 {
@@ -19,7 +20,14 @@ public class enemyAi : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.Find("GSFirstPersonController (1)").transform;
+        if (SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            player = GameObject.Find(("GSFirstPersonController (1)")).transform;
+        }else if(SceneManager.GetActiveScene().name == "World1"){
+            player = GameObject.Find(("GSFirstPersonController (1) Variant")).transform;
+        }
+        
+        
         agent = GetComponent<NavMeshAgent>();
     }
 

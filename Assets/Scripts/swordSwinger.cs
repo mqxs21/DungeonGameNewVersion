@@ -64,7 +64,7 @@ public class SwordSwinger : MonoBehaviour
         if (obj != null)
         {
             // Attempt to get the HitBySword component
-            HitBySword hitBySword = obj.GetComponentInParent<HitBySword>();
+            HitBySword hitBySword = obj.GetComponent<HitBySword>();
 
             // Check if the component was found
             if (hitBySword != null)
@@ -80,11 +80,11 @@ public class SwordSwinger : MonoBehaviour
                     particleBlack.SetActive(true);
                     particleWood.SetActive(true);
                 }
-                else if (objName == "LowPolySkeleton")
+                else if (obj.CompareTag("Enemy"))
                 {
                     if (attackType == "heavy")
                     {
-                        Destroy(obj.transform.parent.gameObject);
+                        Destroy(obj);
                     }
                     else if (attackType == "normal")
                     {
@@ -94,7 +94,7 @@ public class SwordSwinger : MonoBehaviour
                         }
                         else
                         {
-                        Destroy(obj.transform.parent.gameObject);
+                        Destroy(obj);
                         }
 
                     }

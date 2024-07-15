@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6838271674206164359}
   - component: {fileID: 397230712729503792}
   - component: {fileID: 7731294743586255832}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 785913474363775047}
   - component: {fileID: 8105824978577218963}
   - component: {fileID: 5816319504500501236}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ctrnTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 8914119756356130050}
   - component: {fileID: 4090008095331786956}
   - component: {fileID: 3735961271357178247}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -383,7 +383,7 @@ GameObject:
   - component: {fileID: 2140109697295136011}
   - component: {fileID: 8477434247565535874}
   - component: {fileID: 6988324610073749580}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ctrlTi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -482,7 +482,7 @@ GameObject:
   - component: {fileID: 2083956716074469769}
   - component: {fileID: 1114971014952351058}
   - component: {fileID: 5773909308061082784}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -584,7 +584,7 @@ GameObject:
   - component: {fileID: 7315522212141205021}
   - component: {fileID: 6688269879990842791}
   - component: {fileID: 6640042751845975748}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: transIntoTut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -742,8 +742,16 @@ PrefabInstance:
       value: Katana_exportIms
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5029769157930337796, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5029769157930337796, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
       propertyPath: m_IsActive
@@ -805,6 +813,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -181.802
       objectReference: {fileID: 0}
+    - target: {fileID: 5782384772905681907, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5782384772941934016, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.51
@@ -815,7 +827,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5782384772941934016, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 152.47
+      value: 157.05
       objectReference: {fileID: 0}
     - target: {fileID: 5782384772941934016, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
       propertyPath: m_LocalRotation.w
@@ -865,6 +877,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: GSFirstPersonController (1) Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 5782384772941934028, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5782384774195275742, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5782384774221902299, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5782384774301992792, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
       propertyPath: m_BackGroundColor.b
       value: 0
@@ -877,6 +901,30 @@ PrefabInstance:
       propertyPath: m_BackGroundColor.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5782384774301992792, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 1527
+      objectReference: {fileID: 0}
+    - target: {fileID: 5782384774301992794, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5782384774382926660, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5782384774874145032, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5782384774897226586, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948568384631897775, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6831301023542863825, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -888,6 +936,10 @@ PrefabInstance:
     - target: {fileID: 6873656576698510228, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7343962827320746590, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8199955647939579674, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
       propertyPath: m_LocalScale.x

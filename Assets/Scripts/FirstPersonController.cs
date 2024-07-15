@@ -4,8 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Unity.VisualScripting;
-
 
 
 
@@ -167,7 +165,6 @@ public class FirstPersonController : MonoBehaviour
 
     void Start()
     {
-       
         if(lockCursor)
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -185,32 +182,33 @@ public class FirstPersonController : MonoBehaviour
 
         #region Sprint Bar
 
-         sprintBarCG = GetComponentInChildren<CanvasGroup>();
+        sprintBarCG = GetComponentInChildren<CanvasGroup>();
 
-    if (useSprintBar)
-    {
-        sprintBarBG.gameObject.SetActive(true);
-        sprintBar.gameObject.SetActive(true);
-
-        float screenWidth = Screen.width;
-        float screenHeight = Screen.height;
-
-        float sprintBarWidth = screenWidth * sprintBarWidthPercent;
-        float sprintBarHeight = screenHeight * sprintBarHeightPercent;
-
-        sprintBarBG.rectTransform.sizeDelta = new Vector2(sprintBarWidth, sprintBarHeight);
-        sprintBar.rectTransform.sizeDelta = new Vector2(sprintBarWidth - 2, sprintBarHeight - 2);
-
-        if (hideBarWhenFull)
+        if(useSprintBar)
         {
-            sprintBarCG.alpha = 0;
+            sprintBarBG.gameObject.SetActive(true);
+            sprintBar.gameObject.SetActive(true);
+
+            float screenWidth = Screen.width;
+            float screenHeight = Screen.height;
+
+            sprintBarWidth = screenWidth * sprintBarWidthPercent;
+            sprintBarHeight = screenHeight * sprintBarHeightPercent;
+
+            sprintBarBG.rectTransform.sizeDelta = new Vector3(sprintBarWidth, sprintBarHeight, 0f);
+            sprintBar.rectTransform.sizeDelta = new Vector3(sprintBarWidth - 2, sprintBarHeight - 2, 0f);
+
+            if(hideBarWhenFull)
+            {
+                sprintBarCG.alpha = 0;
+            }
         }
-    }
-    else
-    {
-        sprintBarBG.gameObject.SetActive(false);
-        sprintBar.gameObject.SetActive(false);
-    }
+        else
+        {
+            sprintBarBG.gameObject.SetActive(false);
+            sprintBar.gameObject.SetActive(false);
+        }
+
         #endregion
     }
 
@@ -218,7 +216,6 @@ public class FirstPersonController : MonoBehaviour
 
     private void Update()
     {
-
         #region Camera
         if (swordA.GetBool("heavySwordSwinging"))
         {
@@ -552,7 +549,7 @@ private void Crouch()
 
     private IEnumerator SetActiveAfterDelay()
     {
-        yield return new WaitForSeconds(0.5f); // Wait for 1 second
+        yield return new WaitForSeconds(0.4f); // Wait for 1 second
 
         katana.gameObject.SetActive(true);
         imposKat.gameObject.SetActive(false);

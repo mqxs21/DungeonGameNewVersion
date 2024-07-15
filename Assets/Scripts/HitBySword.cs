@@ -3,6 +3,7 @@ using UnityEngine.UIElements;
 
 public class HitBySword : MonoBehaviour
 {
+    public int hp = 2;
     void OnCollisionEnter(Collision collision)
     {
         
@@ -14,7 +15,7 @@ public class HitBySword : MonoBehaviour
 
             if (swordSwinger != null)
             {
-                swordSwinger.ActionsAfterDetectHittingEnemy(name);
+                swordSwinger.ActionsAfterDetectHittingEnemy(name,hp);
             }
             else
             {

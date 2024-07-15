@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.VisualScripting;
+
 
 
 
@@ -165,6 +167,7 @@ public class FirstPersonController : MonoBehaviour
 
     void Start()
     {
+       
         if(lockCursor)
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -215,6 +218,7 @@ public class FirstPersonController : MonoBehaviour
 
     private void Update()
     {
+
         #region Camera
         if (swordA.GetBool("heavySwordSwinging"))
         {

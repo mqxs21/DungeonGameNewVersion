@@ -135,7 +135,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 350, y: 20}
+  m_AnchoredPosition: {x: 318, y: 20}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8105824978577218963
@@ -300,9 +300,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Hold down
-
-    to crouch/uncrouch'
+  m_text: " Click on \n to crouch/uncrouch"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 48a48d06ccf3d084582ee81641b0ab57, type: 2}
   m_sharedMaterial: {fileID: 3105470326758598127, guid: 48a48d06ccf3d084582ee81641b0ab57, type: 2}
@@ -819,7 +817,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5782384772941934016, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.51
+      value: -10.74
       objectReference: {fileID: 0}
     - target: {fileID: 5782384772941934016, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
       propertyPath: m_LocalPosition.y
@@ -827,7 +825,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5782384772941934016, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 157.05
+      value: 152.82
       objectReference: {fileID: 0}
     - target: {fileID: 5782384772941934016, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
       propertyPath: m_LocalRotation.w
@@ -863,6 +861,10 @@ PrefabInstance:
       objectReference: {fileID: 609912794825848079}
     - target: {fileID: 5782384772941934022, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
       propertyPath: jumpKey
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5782384772941934022, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}
+      propertyPath: holdToCrouch
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5782384772941934022, guid: b3a8fae76531c1c43aad7fbed0a6f345, type: 3}

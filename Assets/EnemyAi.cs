@@ -15,6 +15,7 @@ public class enemyAi : MonoBehaviour
     public GameObject swordSkeleton;
     public bool swingUp;
     public float sightRange, attackRange;
+    public Animator redScreen;
     public bool playerInSightRange, playerInAttackRange;
 
     public Animator skeleAnim;

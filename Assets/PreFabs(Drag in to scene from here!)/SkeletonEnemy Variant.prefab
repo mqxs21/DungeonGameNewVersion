@@ -627,6 +627,7 @@ MonoBehaviour:
   swingUp: 0
   sightRange: 20
   attackRange: 5
+  redScreen: {fileID: 0}
   playerInSightRange: 0
   playerInAttackRange: 0
   skeleAnim: {fileID: 1618386517650005511}
@@ -729,3 +730,5 @@ MonoBehaviour:
   heartCanvas: {fileID: 0}
   enemy: {fileID: 2458218601120456586}
   isSwingingUpSkeleton: 0
+  redScreen: {fileID: 0}
+  isAttack: 0

@@ -12,9 +12,8 @@ public class hps : MonoBehaviour
     void Update(){
         if (hpCount==0)
         {
-            Debug.Log("game over");
             canvasFadeOutGameOver.SetActive(true);
-            canvasFadeOutGameOver.GetComponent<Animator>().SetBool("triggerGameOver",true);
+            //canvasFadeOutGameOver.GetComponent<Animator>().SetBool("triggerGameOver",true);
             StartCoroutine(delayAnim(2f));
             
         }

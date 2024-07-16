@@ -28,7 +28,7 @@ public class TriggerBarFallDownScript : MonoBehaviour
         StartCoroutine(DisableAnimatorAfterDelay(1f));
 
         
-        StartCoroutine(FadeOutCrouchTipPanel(3.0f));
+        
     }
 
     private IEnumerator DisableAnimatorAfterDelay(float delay)

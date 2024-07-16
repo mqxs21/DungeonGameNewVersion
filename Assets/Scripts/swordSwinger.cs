@@ -25,13 +25,13 @@ public class SwordSwinger : MonoBehaviour
             sAnim.SetBool("swordSwinging", true);
     
             attackType = "normal";
-        }else  if (Input.GetMouseButton(0) && Input.GetKey("e")  && !imsAnim.GetBool("heavySwordSwinging") && !Input.GetKey(KeyCode.LeftControl)){
+        }else  if (Input.GetMouseButton(1) && !imsAnim.GetBool("heavySwordSwinging") && !Input.GetKey(KeyCode.LeftControl)){
             isSwinging = true;
             Debug.Log("heav");
             sAnim.SetBool("heavySwordSwinging", true);
             attackType = "heavy";
         }
-        if (Input.GetMouseButtonDown(1))
+        /*if (Input.GetMouseButtonDown(1))
         {
             // Only set the parameter if the character is not already blocking
             sAnim.SetBool("swordAgain", false);
@@ -50,7 +50,7 @@ public class SwordSwinger : MonoBehaviour
             Debug.Log("block down");
             sAnim.SetBool("swordIsBlocking", false);
 
-        }
+        }*/
         
     }
      

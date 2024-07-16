@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.VisualScripting;
+
 
 
 
@@ -17,13 +19,13 @@ public class FirstPersonController : MonoBehaviour
     private Rigidbody rb;
 
     public Transform katana;
-
+    
     private bool crouchDelay = false;
     public Animator swb;
 
     public Animator swordA;
 
-
+    public GameObject playerCam;
     private Vector3 originalKatanaScale = new Vector3(217.2288f,217.2288f,217.2288f);
     public int intt;
 
@@ -135,6 +137,8 @@ public class FirstPersonController : MonoBehaviour
     #region Head Bob
 
     public bool enableHeadBob = true;
+
+    public Vector3 offset = new Vector3(1.302f,-0.563f, 1.587f);
     public Transform joint;
     public float bobSpeed = 10f;
     public Vector3 bobAmount = new Vector3(.15f, .05f, 0f);
@@ -147,6 +151,7 @@ public class FirstPersonController : MonoBehaviour
 
     private void Awake()
     {
+        
         rb = GetComponent<Rigidbody>();
 
         crosshairObject = GetComponentInChildren<Image>();
@@ -165,6 +170,7 @@ public class FirstPersonController : MonoBehaviour
 
     void Start()
     {
+        swordA.SetBool("swordGlitch",true);
         if(lockCursor)
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -360,22 +366,22 @@ public class FirstPersonController : MonoBehaviour
 
         #region Crouch
 
-        if (enableCrouch && !swordA.GetBool("swordSwinging") && !swordA.GetBool("heavySwordSwinging") && !swordA.GetBool("swordIsBlocking") && isGrounded && !Input.GetMouseButton(1))
+        if (enableCrouch && !swordA.GetBool("swordSwinging") && !swordA.GetBool("heavySwordSwinging") && !swordA.GetBool("swordIsBlocking") && isGrounded && !Input.GetMouseButtonDown(1))
         
         {
    
-            if(Input.GetKeyDown(crouchKey) && !holdToCrouch && !crouchDelay)
+            if(Input.GetKeyDown(crouchKey) && !holdToCrouch && !crouchDelay && !swordA.GetBool("swordIsBlocking"))
             {
                 Crouch();
             }
             
-            if(Input.GetKeyDown(crouchKey) && holdToCrouch && !crouchDelay )
+            if(Input.GetKeyDown(crouchKey) && holdToCrouch && !crouchDelay &&!swordA.GetBool("swordIsBlocking"))
             {
                 isCrouched = false;
             
                 Crouch();
             }
-            else if(Input.GetKeyUp(crouchKey) && holdToCrouch && !crouchDelay)
+            else if(Input.GetKeyUp(crouchKey) && holdToCrouch && !crouchDelay && !swordA.GetBool("swordIsBlocking"))
             {
                 isCrouched = true;
  
@@ -509,7 +515,8 @@ public class FirstPersonController : MonoBehaviour
     }
 private void Crouch()
     {
-        if (isCrouched)
+        Vector3 pos = katana.transform.position;
+        if ((isCrouched))
         {
             // Restore player's original scale
             transform.localScale = originalScale;
@@ -517,9 +524,10 @@ private void Crouch()
             // Restore katana's original scale and make it visible
             if (katana != null)
             {
-                swb.SetBool("swordBa", false);
+                
                 if (!crouchDelay)
                 {
+                    swb.SetBool("swordBa", false);
                     crouchDelay = true;
                     StartCoroutine(SetActiveAfterDelay());
                 }
@@ -532,12 +540,13 @@ private void Crouch()
             jumpPower = 0;
             jumpPower = t;
         }
-        else 
+        else
         {
             // Reduce player's scale to crouch height
             Vector3 crouchedScale = new Vector3(originalScale.x, crouchHeight, originalScale.z);
             transform.localScale = crouchedScale;
 
+            
             // Adjust katana's scale proportionally to player's crouched height and hide it
             if (katana != null && !crouchDelay)
             {
@@ -553,12 +562,15 @@ private void Crouch()
 
     private IEnumerator SetActiveAfterDelay()
     {
-        yield return new WaitForSeconds(0.4f); // Wait for 1 second
+        swordA.SetBool("swordIsBlocking",false);
+        
 
+        yield return new WaitForSeconds(0.4f); // Wait for 1 second
         katana.gameObject.SetActive(true);
         imposKat.gameObject.SetActive(false);
         crouchDelay = false; // Reset crouch delay
     }
+
     private void HeadBob()
     {
         if(isWalking)

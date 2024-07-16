@@ -19,6 +19,11 @@ public class FirstPersonController : MonoBehaviour
     private Rigidbody rb;
 
     public Transform katana;
+
+    public AudioSource runningAudio;
+    public AudioSource walkingAudio;
+
+    public bool isPlayingWalking;
     public Animator ctrlsUiAnimator;
     private bool controlsScreenUp = false;
     private bool crouchDelay = false;
@@ -223,6 +228,16 @@ public class FirstPersonController : MonoBehaviour
 
     private void Update()
     {
+        if (isWalking && !isPlayingWalking)
+        {
+            Debug.Log("walkingSoundPLay");
+            walkingAudio.Play();
+            isPlayingWalking = true;
+        }else if(!isWalking){
+            walkingAudio.Stop();
+            isPlayingWalking = false;
+            Debug.Log("NowalkingSoundPLay");
+        }
         if (Input.GetKeyDown("t") && controlsScreenUp)
         {
             ctrlsUiAnimator.SetBool("UIup",false);
@@ -317,32 +332,42 @@ public class FirstPersonController : MonoBehaviour
 
         #region Sprint
 
-        if(enableSprint)
+       if (enableSprint)
         {
-            if(isSprinting)
+            if (isSprinting)
             {
+                if (!runningAudio.isPlaying) // Start the running sound when sprinting begins
+                {
+                    runningAudio.Play();
+                }
                 isZoomed = false;
                 playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, sprintFOV, sprintFOVStepTime * Time.deltaTime);
 
-
-                if(!unlimitedSprint)
+                if (!unlimitedSprint)
                 {
                     sprintRemaining -= 1 * Time.deltaTime;
                     if (sprintRemaining <= 0)
                     {
                         isSprinting = false;
                         isSprintCooldown = true;
+                        runningAudio.Stop(); // Stop the running sound when sprinting ends
                     }
                 }
             }
             else
             {
-
+                
+                runningAudio.Stop();
                 sprintRemaining = Mathf.Clamp(sprintRemaining += 1 * Time.deltaTime, 0, sprintDuration);
             }
 
-            if(isSprintCooldown)
+            if (isSprintCooldown)
             {
+                if (runningAudio.isPlaying) // Stop the running sound during cooldown
+                {
+                    runningAudio.Stop();
+                }
+
                 sprintCooldown -= 1 * Time.deltaTime;
                 if (sprintCooldown <= 0)
                 {
@@ -352,12 +377,15 @@ public class FirstPersonController : MonoBehaviour
             else
             {
                 sprintCooldown = sprintCooldownReset;
-            }            if(useSprintBar && !unlimitedSprint)
+            }
+
+            if (useSprintBar && !unlimitedSprint)
             {
                 float sprintRemainingPercent = sprintRemaining / sprintDuration;
                 sprintBar.transform.localScale = new Vector3(sprintRemainingPercent, 1f, 1f);
             }
         }
+    
 
         #endregion
 
@@ -421,6 +449,7 @@ public class FirstPersonController : MonoBehaviour
             if (targetVelocity.x != 0 || targetVelocity.z != 0 && isGrounded)
             {
                 isWalking = true;
+
             }
             else
             {
@@ -470,6 +499,7 @@ public class FirstPersonController : MonoBehaviour
                 }
 
                 targetVelocity = transform.TransformDirection(targetVelocity) * walkSpeed;
+
 
                 // Apply a force that attempts to reach our target velocity
                 Vector3 velocity = rb.velocity;

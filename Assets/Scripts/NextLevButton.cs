@@ -6,9 +6,14 @@ using System.Collections;
 public class NextLevButton : MonoBehaviour
 {
     public GameObject transPanel;
+
+    private AudioSource buttonClickAudio;
     public void NextLevelFunc()
     {
+        buttonClickAudio = GetComponent<AudioSource>();
         Debug.Log("Next Level Trigger");
+        buttonClickAudio.Play();
+
         StartCoroutine(WaitAndLoadScene());
     }
 

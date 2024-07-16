@@ -86,9 +86,9 @@ public class SwordSwinger : MonoBehaviour
                 }
                 else if (obj.CompareTag("Enemy"))
                 {
-                    if (attackType == "heavy" && hitBySword.hp>0)
+                    if (attackType == "heavy")
                     {
-                        hitBySword.hp=hitBySword.hp-2;
+                        Destroy(obj);
 
                     }
                     else if (attackType == "normal")

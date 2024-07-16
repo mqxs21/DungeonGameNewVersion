@@ -230,13 +230,13 @@ public class FirstPersonController : MonoBehaviour
     {
         if (isWalking && !isPlayingWalking)
         {
-            Debug.Log("walkingSoundPLay");
+            //Debug.Log("walkingSoundPLay");
             walkingAudio.Play();
             isPlayingWalking = true;
         }else if(!isWalking){
             walkingAudio.Stop();
             isPlayingWalking = false;
-            Debug.Log("NowalkingSoundPLay");
+            //Debug.Log("NowalkingSoundPLay");
         }
         if (Input.GetKeyDown("t") && controlsScreenUp)
         {

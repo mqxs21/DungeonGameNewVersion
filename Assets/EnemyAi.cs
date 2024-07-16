@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
-
+using System.Collections;  
 public class enemyAi : MonoBehaviour
 {
     public NavMeshAgent agent;
@@ -9,8 +9,11 @@ public class enemyAi : MonoBehaviour
     public LayerMask whatIsGround, whatIsPlayer;
 
     public float timeBetweenAttacks;
-    bool alreadyAttacked;
 
+    public bool canAttack;
+    bool alreadyAttacked;
+    public GameObject swordSkeleton;
+    public bool swingUp;
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
@@ -60,7 +63,7 @@ public class enemyAi : MonoBehaviour
 
     private void AttackPlayer()
     {
-        // Only stop moving if within attack range and the agent has reached its destination
+       
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
             agent.SetDestination(transform.position); // Stop moving
@@ -68,16 +71,22 @@ public class enemyAi : MonoBehaviour
 
             if (!alreadyAttacked)
             {
-                Debug.Log("attack");
+                canAttack = true;
+                swordSkeleton.GetComponent<PlayerHitter>().isSwingingUpSkeleton = true;
+                swingUp = true;
                 skeleAnim.SetBool("running", false);
                 skeleAnim.SetBool("attacking", true);
                 alreadyAttacked = true;
+                
+                swingUp = false;
+                
                 Invoke(nameof(ResetAttack), timeBetweenAttacks);
             }
         }
         else
         {
             agent.SetDestination(player.position); // Continue moving until within stopping distance
+            canAttack = false;
         }
     }
 
@@ -109,5 +118,10 @@ public class enemyAi : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
+    }
+    private IEnumerator WaitAttack(float delay){
+            yield return new WaitForSeconds(delay);
+            Debug.Log("can take damage");
+            swordSkeleton.GetComponent<PlayerHitter>().isSwingingUpSkeleton = false;
     }
 }

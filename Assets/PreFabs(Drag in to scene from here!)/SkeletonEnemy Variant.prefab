@@ -414,7 +414,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6782667309670242428, guid: 6e4019dcbde26c8408f888128d0a9a67, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -60.69587
+      value: -12.26
       objectReference: {fileID: 0}
     - target: {fileID: 6782667309670242428, guid: 6e4019dcbde26c8408f888128d0a9a67, type: 3}
       propertyPath: m_LocalPosition.y
@@ -422,7 +422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6782667309670242428, guid: 6e4019dcbde26c8408f888128d0a9a67, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 25.030605
+      value: 29.21
       objectReference: {fileID: 0}
     - target: {fileID: 6782667309670242428, guid: 6e4019dcbde26c8408f888128d0a9a67, type: 3}
       propertyPath: m_LocalRotation.w
@@ -584,6 +584,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8172442304542317006, guid: 6e4019dcbde26c8408f888128d0a9a67, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8253104911211273374}
+    - targetCorrespondingSourceObject: {fileID: 3968441568344008033, guid: 6e4019dcbde26c8408f888128d0a9a67, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5261101929334864068}
+    - targetCorrespondingSourceObject: {fileID: 3968441568344008033, guid: 6e4019dcbde26c8408f888128d0a9a67, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5736005775040442556}
   m_SourcePrefab: {fileID: 100100000, guid: 6e4019dcbde26c8408f888128d0a9a67, type: 3}
 --- !u!95 &1618386517650005511 stripped
 Animator:
@@ -616,6 +622,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   timeBetweenAttacks: 3
+  canAttack: 0
+  swordSkeleton: {fileID: 7234395799480541989}
+  swingUp: 0
   sightRange: 20
   attackRange: 5
   playerInSightRange: 0
@@ -678,3 +687,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 2
+  cameraAnimator: {fileID: 0}
+--- !u!1 &7234395799480541989 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3968441568344008033, guid: 6e4019dcbde26c8408f888128d0a9a67, type: 3}
+  m_PrefabInstance: {fileID: 6014276045775324740}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &5261101929334864068
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7234395799480541989}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.11131266, y: 0.5818692, z: 0.042575292}
+  m_Center: {x: -0.000042952473, y: 0.23139928, z: -0.0073009892}
+--- !u!114 &5736005775040442556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7234395799480541989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d59936655cc092b4b9680ec0b33d013a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heartCanvas: {fileID: 0}
+  enemy: {fileID: 2458218601120456586}
+  isSwingingUpSkeleton: 0

@@ -1,9 +1,11 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.UIElements;
 
 public class HitBySword : MonoBehaviour
 {
     public int hp = 2;
+    public Animator cameraAnimator;
     void OnCollisionEnter(Collision collision)
     {
         
@@ -21,6 +23,16 @@ public class HitBySword : MonoBehaviour
             {
                 Debug.LogError("Can't find SwordSwinger script");
             }
+            /*cameraAnimator.enabled = true;
+            cameraAnimator.SetBool("isShake", true);
+            StartCoroutine(DisableAnimatorAfterDelay(1f));*/
         }
+    }
+    private IEnumerator DisableAnimatorAfterDelay(float delay)
+    {
+        
+        yield return new WaitForSeconds(delay);
+        cameraAnimator.enabled = false;
+        
     }
 }

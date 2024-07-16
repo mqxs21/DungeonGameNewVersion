@@ -24,8 +24,6 @@ public class PlayerHitter : MonoBehaviour
             Destroy( GameObject.Find("health ("+GameObject.Find("heartCanvas").GetComponent<hps>().hpCount.ToString()+")"));
             GameObject.Find("getHitScreenRed").GetComponent<Animator>().SetBool("getHitSk",true);
 
-            }else {
-                GameObject.Find("getHitScreenRed").GetComponent<Animator>().SetBool("getHitSk",false);
             }
             
             }

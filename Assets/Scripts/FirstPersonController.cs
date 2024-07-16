@@ -19,7 +19,8 @@ public class FirstPersonController : MonoBehaviour
     private Rigidbody rb;
 
     public Transform katana;
-    
+    public Animator ctrlsUiAnimator;
+    private bool controlsScreenUp = false;
     private bool crouchDelay = false;
     public Animator swb;
 
@@ -222,6 +223,16 @@ public class FirstPersonController : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown("t") && controlsScreenUp)
+        {
+            ctrlsUiAnimator.SetBool("UIup",false);
+            Debug.Log("screen down");
+            controlsScreenUp = false;
+        }else if(Input.GetKeyDown("t") && !controlsScreenUp){
+            ctrlsUiAnimator.SetBool("UIup",true);
+            Debug.Log("screen up");
+            controlsScreenUp = true;
+        }
         if (!isSprinting)
         {
             walkSpeed = 13f;

@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
-using System.Collections;  
+using System.Collections;
+
 public class enemyAi : MonoBehaviour
 {
     public NavMeshAgent agent;
@@ -9,13 +10,11 @@ public class enemyAi : MonoBehaviour
     public LayerMask whatIsGround, whatIsPlayer;
 
     public float timeBetweenAttacks;
-
     public bool canAttack;
     bool alreadyAttacked;
     public GameObject swordSkeleton;
     public bool swingUp;
     public float sightRange, attackRange;
-    public Animator redScreen;
     public bool playerInSightRange, playerInAttackRange;
 
     public Animator skeleAnim;
@@ -26,12 +25,13 @@ public class enemyAi : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Tutorial")
         {
-            player = GameObject.Find(("GSFirstPersonController (1)")).transform;
-        }else if(SceneManager.GetActiveScene().name == "World1"){
-            player = GameObject.Find(("GSFirstPersonController (1) Variant")).transform;
+            player = GameObject.Find("GSFirstPersonController (1)").transform;
         }
-        
-        
+        else if (SceneManager.GetActiveScene().name == "World1")
+        {
+            player = GameObject.Find("GSFirstPersonController (1) Variant").transform;
+        }
+
         agent = GetComponent<NavMeshAgent>();
     }
 
@@ -64,7 +64,6 @@ public class enemyAi : MonoBehaviour
 
     private void AttackPlayer()
     {
-       
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
             agent.SetDestination(transform.position); // Stop moving
@@ -72,15 +71,15 @@ public class enemyAi : MonoBehaviour
 
             if (!alreadyAttacked)
             {
-                canAttack = true;
                 swordSkeleton.GetComponent<PlayerHitter>().isSwingingUpSkeleton = true;
                 swingUp = true;
                 skeleAnim.SetBool("running", false);
                 skeleAnim.SetBool("attacking", true);
+
                 alreadyAttacked = true;
-                
-                swingUp = false;
-                
+
+                StartCoroutine(WaitAttack(0.5f)); // Start coroutine to handle attack delay
+
                 Invoke(nameof(ResetAttack), timeBetweenAttacks);
             }
         }
@@ -111,6 +110,8 @@ public class enemyAi : MonoBehaviour
     {
         alreadyAttacked = false;
         skeleAnim.SetBool("attacking", false);
+        swordSkeleton.GetComponent<PlayerHitter>().isSwingingUpSkeleton = false; // Reset swing state
+        canAttack = false; // Reset canAttack
     }
 
     private void OnDrawGizmosSelected()
@@ -120,9 +121,11 @@ public class enemyAi : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }
-    private IEnumerator WaitAttack(float delay){
-            yield return new WaitForSeconds(delay);
-            Debug.Log("can take damage");
-            swordSkeleton.GetComponent<PlayerHitter>().isSwingingUpSkeleton = false;
+
+    private IEnumerator WaitAttack(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Debug.Log("can take damage");
+        canAttack = true; // Enable attack after delay
     }
 }

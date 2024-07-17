@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
+
 
 
 
@@ -176,7 +178,12 @@ public class FirstPersonController : MonoBehaviour
 
     void Start()
     {
-        swordA.SetBool("swordGlitch",true);
+        if (SceneManager.GetActiveScene().name  == "Tutorial")
+        {
+            ctrlsUiAnimator.SetBool("UIup",true);
+        controlsScreenUp = true;
+        }
+        
         if(lockCursor)
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -228,6 +235,10 @@ public class FirstPersonController : MonoBehaviour
 
     private void Update()
     {
+        /*if (!isCrouched && Input.GetMouseButton(1))
+        {
+            GameObject.Find("Joint").GetComponent<AudioSource>().Play();
+        }*/
         if (isWalking && !isPlayingWalking)
         {
             //Debug.Log("walkingSoundPLay");

@@ -12,6 +12,8 @@ public class PlayerHitter : MonoBehaviour
     public Animator redScreen;
 
     public bool isAttack;
+
+    public AudioSource playerGetHit;
     void OnTriggerEnter(Collider obj){
        
         if (obj.CompareTag("Player") && enemy.GetComponent<enemyAi>().canAttack)
@@ -23,7 +25,7 @@ public class PlayerHitter : MonoBehaviour
             //Debug.Log(GameObject.Find("heartCanvas").GetComponent<hps>().hpCount);
             Destroy( GameObject.Find("health ("+GameObject.Find("heartCanvas").GetComponent<hps>().hpCount.ToString()+")"));
             GameObject.Find("getHitScreenRed").GetComponent<Animator>().SetBool("getHitSk",true);
-
+            GetComponent<AudioSource>().Play();
             }
             
             }

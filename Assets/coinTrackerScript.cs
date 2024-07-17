@@ -11,6 +11,6 @@ public class coinTrackerScript : MonoBehaviour
     void Update(){
         
         coinsText.text = coinAmount.ToString();
-        Debug.Log(coinAmount);
+
     }
 }

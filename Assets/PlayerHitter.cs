@@ -34,7 +34,6 @@ public class PlayerHitter : MonoBehaviour
             redScreen.SetBool("getHitSk",true);  
             yield return new WaitForSeconds(1f);
             redScreen.SetBool("getHitSk",false);
-            Debug.Log("canRed");
             isAttack = true;
         }
         }

@@ -10,6 +10,8 @@ public class SwordSwinger : MonoBehaviour
     public GameObject particleBlack;
     public GameObject skeletonDeathParticle;
     public Animator imsAnim;
+
+    public bool cAttack = true;
     public bool isSwinging = false;
     public bool isBlocking = false;
     private int now;
@@ -22,7 +24,7 @@ public class SwordSwinger : MonoBehaviour
     {
         skeletonDeathParticle = GameObject.Find("skeletonDeath");
         skeletonHit = GameObject.Find("skeletonGetHit");
-        if (Input.GetMouseButton(0) && !isSwinging && !imsAnim.GetBool("swordBa") && !Input.GetKey("e") && !Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetMouseButton(0) && !isSwinging && !imsAnim.GetBool("swordBa") && !Input.GetKey("e") && !Input.GetKey(KeyCode.LeftControl) && cAttack)
         {
             isSwinging = true;
             if (!isSwordSwingingSound)
@@ -37,7 +39,6 @@ public class SwordSwinger : MonoBehaviour
         else if (Input.GetMouseButton(1) && !imsAnim.GetBool("heavySwordSwinging") && !Input.GetKey(KeyCode.LeftControl))
         {
             isSwinging = true;
-            Debug.Log("heav");
             //GameObject.Find("Joint").GetComponent<AudioSource>().Play();
             sAnim.SetBool("heavySwordSwinging", true);
             attackType = "heavy";
@@ -48,9 +49,6 @@ public class SwordSwinger : MonoBehaviour
     {
         if (isSwinging)
         {
-            Debug.Log("swordSwingSoundSffect");
-            Debug.Log("hit " + objName);
-            Debug.Log(hp);
             GameObject obj = GameObject.Find(objName);
             
             if (obj != null)

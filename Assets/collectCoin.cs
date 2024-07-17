@@ -7,7 +7,7 @@ public class collectCoin : MonoBehaviour
         if (obj.gameObject.CompareTag("Player"))
         {
             GameObject.Find("coinTracker").GetComponent<coinTrackerScript>().coinAmount++;
-
+            
             Destroy(gameObject);
             
         }

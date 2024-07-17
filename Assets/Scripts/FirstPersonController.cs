@@ -415,7 +415,7 @@ public class FirstPersonController : MonoBehaviour
         #endregion
 
         #region Crouch
-
+        
         if (enableCrouch && !swordA.GetBool("swordSwinging") && !swordA.GetBool("heavySwordSwinging") && !swordA.GetBool("swordIsBlocking") && isGrounded && !Input.GetMouseButtonDown(1))
         
         {
@@ -602,7 +602,8 @@ private void Crouch()
             // Adjust katana's scale proportionally to player's crouched height and hide it
             if (katana != null && !crouchDelay)
             {
-                katana.gameObject.SetActive(false); // Hide katana
+                katana.GetComponent<Renderer>().enabled = false;
+
                 imposKat.gameObject.SetActive(true);
                 swb.SetBool("swordBa", true);
             }
@@ -618,7 +619,7 @@ private void Crouch()
         
 
         yield return new WaitForSeconds(0.4f); // Wait for 1 second
-        katana.gameObject.SetActive(true);
+        katana.GetComponent<Renderer>().enabled = true;
         imposKat.gameObject.SetActive(false);
         crouchDelay = false; // Reset crouch delay
     }

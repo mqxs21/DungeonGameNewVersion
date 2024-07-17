@@ -14,12 +14,14 @@ public class SwordSwinger : MonoBehaviour
     public bool isBlocking = false;
     private int now;
     public bool isSwordSwingingSound = false;
+    public GameObject skeletonHit;
     public string attackType;
     public bool canClickAgain;
     
     void Update()
     {
         skeletonDeathParticle = GameObject.Find("skeletonDeath");
+        skeletonHit = GameObject.Find("skeletonGetHit");
         if (Input.GetMouseButton(0) && !isSwinging && !imsAnim.GetBool("swordBa") && !Input.GetKey("e") && !Input.GetKey(KeyCode.LeftControl))
         {
             isSwinging = true;
@@ -54,7 +56,7 @@ public class SwordSwinger : MonoBehaviour
             if (obj != null)
             {
                 Vector3 spawnEffectPos = obj.transform.position;
-                spawnEffectPos.y = spawnEffectPos.y + 4;
+                spawnEffectPos.y = spawnEffectPos.y + 5;
                 HitBySword hitBySword = obj.GetComponent<HitBySword>();
                 if (hitBySword != null)
                 {
@@ -65,13 +67,13 @@ public class SwordSwinger : MonoBehaviour
                     }
                     else if (attackType == "heavy" && objName == "training_dummy")
                     {
-                        Destroy(obj);
+                        dummyAnim.SetBool("isKnocked", true);
                         particleBlack.SetActive(true);
                         particleWood.SetActive(true);
                     }
                     else if (obj.CompareTag("Enemy"))
                     {
-                        if (attackType == "heavy")
+                        if (attackType == "heavy" && objName != "training_dummy")
                         {
                             Instantiate(skeletonDeathParticle, spawnEffectPos, Quaternion.identity);
                             Instantiate(GameObject.Find("skeletonDrop"),spawnEffectPos,Quaternion.identity);
@@ -82,8 +84,9 @@ public class SwordSwinger : MonoBehaviour
                             if (hitBySword.hp > 0)
                             {
                                 hitBySword.hp--;
+                                Instantiate(skeletonHit, spawnEffectPos, Quaternion.identity);
                             }
-                            else
+                            else if (objName != "training_dummy")
                             {
                                 Instantiate(skeletonDeathParticle, spawnEffectPos, Quaternion.identity);
                                 Instantiate(GameObject.Find("skeletonDrop"),spawnEffectPos,Quaternion.identity);
@@ -91,12 +94,13 @@ public class SwordSwinger : MonoBehaviour
                             }
                         }
                     }
-                    if (hp <= 0)
+                    if (hp <= 0 && objName != "training_dummy")
                     {
                         Instantiate(skeletonDeathParticle, spawnEffectPos, Quaternion.identity);
                         Instantiate(GameObject.Find("skeletonDrop"),spawnEffectPos,Quaternion.identity);
                         Destroy(obj);
                     }
+                    
                 }
                 else
                 {

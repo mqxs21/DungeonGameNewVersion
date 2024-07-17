@@ -406,7 +406,7 @@ public class FirstPersonController : MonoBehaviour
         if(enableJump && Input.GetKeyDown(jumpKey) && isGrounded && !isCrouched && !Input.GetKey("e"))
         {
 
-            Jump();
+            //Jump();
 
             
             

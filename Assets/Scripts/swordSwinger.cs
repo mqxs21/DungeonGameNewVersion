@@ -74,6 +74,7 @@ public class SwordSwinger : MonoBehaviour
                         if (attackType == "heavy")
                         {
                             Instantiate(skeletonDeathParticle, spawnEffectPos, Quaternion.identity);
+                            Instantiate(GameObject.Find("skeletonDrop"),spawnEffectPos,Quaternion.identity);
                             Destroy(obj);
                         }
                         else if (attackType == "normal")
@@ -85,6 +86,7 @@ public class SwordSwinger : MonoBehaviour
                             else
                             {
                                 Instantiate(skeletonDeathParticle, spawnEffectPos, Quaternion.identity);
+                                Instantiate(GameObject.Find("skeletonDrop"),spawnEffectPos,Quaternion.identity);
                                 Destroy(obj);
                             }
                         }
@@ -92,6 +94,7 @@ public class SwordSwinger : MonoBehaviour
                     if (hp <= 0)
                     {
                         Instantiate(skeletonDeathParticle, spawnEffectPos, Quaternion.identity);
+                        Instantiate(GameObject.Find("skeletonDrop"),spawnEffectPos,Quaternion.identity);
                         Destroy(obj);
                     }
                 }

@@ -283,7 +283,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: swordHeavy
-  m_Speed: 1
+  m_Speed: 0.95
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 2983636072492122607}
@@ -582,7 +582,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: swordSwing
-  m_Speed: 1.25
+  m_Speed: 1.4
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 9202479974930153264}

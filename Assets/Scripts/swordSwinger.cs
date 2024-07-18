@@ -87,7 +87,7 @@ public class SwordSwinger : MonoBehaviour
                             else if (objName != "training_dummy")
                             {
                                 Instantiate(skeletonDeathParticle, spawnEffectPos, Quaternion.identity);
-                                Instantiate(GameObject.Find("skeletonDrop"),spawnEffectPos,Quaternion.identity);
+                                
                                 Destroy(obj);
                             }
                         }

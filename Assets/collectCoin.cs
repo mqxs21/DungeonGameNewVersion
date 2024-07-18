@@ -1,7 +1,4 @@
-using System.Linq.Expressions;
-using TreeEditor;
-using Unity.VisualScripting;
-using UnityEditor.Callbacks;
+
 using UnityEngine;
 
 public class collectCoin : MonoBehaviour

@@ -1,6 +1,6 @@
 
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class DetectPlayerOpenDoor : MonoBehaviour
 {
     public Animator leftDoor;
@@ -10,7 +10,11 @@ public class DetectPlayerOpenDoor : MonoBehaviour
         
         if (obj.CompareTag("Player"))
         {
-             m_Collider.enabled = false;
+            if (SceneManager.GetActiveScene().name == "World1")
+            {
+                m_Collider.enabled = false;
+            }
+             
             leftDoor.SetBool("playerNear",true);
             rightDoor.SetBool("playerNearRight",true);
         }

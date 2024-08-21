@@ -6,6 +6,12 @@ public class HitBySword : MonoBehaviour
 {
     public int hp = 2;
     public Animator cameraAnimator;
+
+    private AudioSource boneCrackAud;
+
+    void Start(){
+        boneCrackAud = GetComponent<AudioSource>();
+    }
     void OnCollisionEnter(Collision collision)
     {
         
@@ -13,10 +19,12 @@ public class HitBySword : MonoBehaviour
         {
             
 
-            SwordSwinger swordSwinger = collision.collider.GetComponentInParent<SwordSwinger>();
+            SwordSwinger swordSwinger = collision.collider.GetComponentInParent<SwordSwinger>(); 
+            boneCrackAud.Play();
 
             if (swordSwinger != null)
             {
+                
                 swordSwinger.ActionsAfterDetectHittingEnemy(name,hp);
             }
             else

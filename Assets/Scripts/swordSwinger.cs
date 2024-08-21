@@ -53,12 +53,35 @@ public class SwordSwinger : MonoBehaviour
             
             if (obj != null)
             {
+
                 Vector3 spawnEffectPos = obj.transform.position;
                 spawnEffectPos.y = spawnEffectPos.y + 5;
                 HitBySword hitBySword = obj.GetComponent<HitBySword>();
                 if (hitBySword != null)
                 {
-                    if (objName == "training_dummy" && attackType == "normal")
+                   StartCoroutine(attackFreeze(objName,hitBySword,spawnEffectPos,obj,hp));
+                    
+                }
+                else
+                {
+                    Debug.LogError("HitBySword component not found on object: " + obj.name);
+                }
+            }
+            else
+            {
+                Debug.LogError("GameObject with name " + objName + " not found.");
+            }
+        }
+        else
+        {
+            Debug.Log("Sword is not swinging.");
+        }
+    }
+    IEnumerator attackFreeze(string objName, HitBySword hitBySword, Vector3 spawnEffectPos, GameObject obj, int hp){
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(0.05f);
+        Time.timeScale = 1;
+         if (objName == "training_dummy" && attackType == "normal")
                     {
                         dummyAnim.SetBool("isKnocked", true);
                         obj.GetComponent<Collider>().enabled = false;
@@ -98,24 +121,8 @@ public class SwordSwinger : MonoBehaviour
                         Instantiate(GameObject.Find("skeletonDrop"),spawnEffectPos,Quaternion.identity);
                         Destroy(obj);
                     }
-                    
-                }
-                else
-                {
-                    Debug.LogError("HitBySword component not found on object: " + obj.name);
-                }
-            }
-            else
-            {
-                Debug.LogError("GameObject with name " + objName + " not found.");
-            }
-        }
-        else
-        {
-            Debug.Log("Sword is not swinging.");
-        }
-    }
 
+    }
     private IEnumerator waitBetweenAttackSounds(float delay)
     {
         yield return new WaitForSeconds(delay);
